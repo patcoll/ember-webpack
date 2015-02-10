@@ -13,6 +13,8 @@ module.exports = function(App) {
       var libs = require('./*/**/*.@(js|coffee)', { hash: true, ext: false });
 
       Ember.debug('-------------------------------');
+      Ember.debug('REGISTER');
+      Ember.debug('-------------------------------');
       for (relpath in libs) {
         m = relpath.match(/^\.\/([^\/]+)\//);
         if (!m || !m[1]) {
