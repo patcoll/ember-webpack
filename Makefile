@@ -1,17 +1,20 @@
 WFLAGS=--progress --colors
 WFLAGSDEV=--debug --devtool source-map --output-pathinfo
 
+all:
+	webpack $(WFLAGS) $(WFLAGSDEV)
 deps:
 	bower install
 	npm install
 prod:
 	NODE_ENV=production webpack $(WFLAGS)
-default:
-	webpack $(WFLAGS) $(WFLAGSDEV)
 watch:
-	webpack $(WFLAGS) $(WFLAGSDEV) --watch
+	# webpack $(WFLAGS) $(WFLAGSDEV) --watch
+	grunt dev
 start:
-	webpack-dev-server $(WFLAGS) $(WFLAGSDEV)
+	# webpack-dev-server $(WFLAGS) $(WFLAGSDEV)
+	# grunt
+	grunt dev
 shrinkwrap:
 	rm -f npm-shrinkwrap.json
 	rm -r node_modules

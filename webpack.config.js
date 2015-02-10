@@ -17,14 +17,14 @@ var common = {
 
       // copies files from app/static (shallow) as-is to output.path, ignoring file's full path.
       // if you want the full path, use [path][name].[ext]
-      { test: /app(\/|\\)(static|public)(\/|\\)[^\/\\]+/, loader: 'file?name=[name].[ext]' },
+      // { test: /app(\/|\\)(static|public)(\/|\\)[^\/\\]+/, loader: 'file?name=[name].[ext]' },
       { test: /(static|public)(\/|\\)[^\/\\]+/, loader: 'file?name=[name].[ext]' },
 
       // processes yaml files into json, then from json into a javascript object.
-      { test: /\.yml$/, loader: 'json!yaml' },
+      // { test: /\.yml$/, loader: 'json!yaml' },
 
       // require JSON in a node-compatible way
-      { test: /\.json$/, loader: 'json' },
+      // { test: /\.json$/, loader: 'json' },
 
       // give well-behaved jquery plugins the $ global variable.
       // { test: /jquery[a-z\.-]+\.js$/i, loader: 'imports?$=jquery,jQuery=jquery' },
@@ -33,18 +33,18 @@ var common = {
       { test: /\.(gif|jpg|png|eot|woff|ttf|svg)$/, loader: 'file?name=[path][name]-[sha512:hash:base62:7].[ext]' },
       // { test: /(\.md|LICENSE|README)$/, loader: 'file?name=[path][name]-[sha512:hash:base62:7].[ext]' },
 
-      { test: /jquery\.js$/, loader: 'exports?jQuery!expose?jQuery' },
+      { test: /jquery(\.min)?\.js$/, loader: 'exports?jQuery!expose?jQuery' },
 
       // give bootstrap js plugins the jQuery global variable.
       // { test: /bootstrap\/js\/.+$/, loader: 'imports?$=jquery,jQuery=jquery' },
-      { test: /ember\.debug\.js$/, loader: 'exports?Ember!imports?jquery' },
-      { test: /ember-data\.js$/, loader: 'exports?Ember.lookup.DS' },
+      { test: /ember(\.(min|debug))?\.js$/, loader: 'exports?Ember!imports?jQuery=jquery' },
+      { test: /ember-data(\.(min|prod))?\.js$/, loader: 'exports?Ember.lookup.DS' },
       // { test: /ember/, loader: 'imports?jQuery=jquery' },
 
       // compiles less.
-      { test: /\.less$/, loader: ExtractTextPlugin.extract("style", "css!less") },
+      // { test: /\.less$/, loader: ExtractTextPlugin.extract("style", "css!less") },
       // compiles less.
-      { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css") },
+      // { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css") },
 
       // ember handlebars
       { test: /\.hbs$/, loader: 'ember-templates' },
@@ -53,6 +53,7 @@ var common = {
       { test: /\.coffee$/, loader: 'coffee' }
     ],
     noParse: [
+      // /jquery\.js$/
     ]
   },
   node: {
@@ -62,8 +63,9 @@ var common = {
   resolve: {
     root: __dirname,
     alias: {
-      // 'jquery': 'bower_components/jquery/dist/jquery.js',
-      // 'ember': 'bower_components/ember/ember.debug.js'
+      'jquery': 'bower_components/jquery/dist/jquery.js',
+      'ember': 'bower_components/ember/ember.debug.js',
+      'ember-data': 'bower_components/ember-data/ember-data.js'
     },
     modulesDirectories: [
       "bower_components",
@@ -71,6 +73,10 @@ var common = {
       "vendor/js"
     ],
     extensions: ["", ".js", ".jsx", ".coffee", ".less", ".css"]
+  },
+  devServer: {
+    contentBase: "./build",
+    lazy: true
   }
 };
 
@@ -87,7 +93,8 @@ var plugins = function(opts) {
   );
   plugins.push(new webpack.ProvidePlugin({
     'window.jQuery': 'jquery',
-    'window.Ember': 'ember'
+    'window.Ember': 'ember',
+    'window.DS': 'ember-data'
   }));
   // plugins.push(new webpack.IgnorePlugin(/vertx/));
   // plugins.push(new webpack.IgnorePlugin(/canvas/));
@@ -116,4 +123,19 @@ module.exports = [
       production: production
     })
   })
+  // extend(true, {}, common, {
+  //   name: 'vendor',
+  //   target: 'web',
+  //   entry: path.resolve('app/vendor.coffee'),
+  //   output: {
+  //     path: path.resolve(dist),
+  //     filename: 'vendor.js'
+  //   },
+  //   plugins: plugins({
+  //     define: {
+  //       FRONTEND: true
+  //     },
+  //     production: production
+  //   })
+  // })
 ];
