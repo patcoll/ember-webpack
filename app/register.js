@@ -1,5 +1,4 @@
 var Ember = require('ember');
-var _ = require('lodash');
 var inflector = require('underscore.inflection');
 
 module.exports = function(App) {
