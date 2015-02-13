@@ -7,7 +7,7 @@ within `app` and register everything it finds with the Ember.Application
 `register` function. Models, routes, controllers, templates, everything. See
 `app/register.js` for details.
 
-It uses [webpack][1] so different loaders can be switched in and out in a very
+It uses [webpack] so different loaders can be switched in and out in a very
 flexible manner. I can use CoffeeScript in files I need it. I can use full ES6
 syntax with any number of transpilers such as `6to5`. I can `require` YAML
 files. And this all gets done at compile time. Genius.
@@ -44,3 +44,5 @@ to transpile it and include it.
 
 Ember, as of this writing, lacks server-side support so trying to get
 "isomorphic" working in this setup is a moot point.
+
+[webpack]: http://webpack.github.io/

@@ -63,9 +63,9 @@ var common = {
   resolve: {
     root: __dirname,
     alias: {
-      'jquery': 'bower_components/jquery/dist/jquery.js',
-      'ember': 'bower_components/ember/ember.debug.js',
-      'ember-data': 'bower_components/ember-data/ember-data.js'
+      'jquery': 'bower_components/jquery/dist/jquery.min.js',
+      'ember': 'bower_components/ember/ember.min.js',
+      'ember-data': 'bower_components/ember-data/ember-data.min.js'
     },
     modulesDirectories: [
       "bower_components",
