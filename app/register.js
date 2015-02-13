@@ -10,10 +10,11 @@ module.exports = function(App) {
       var typePlural, typeSingular, pathPart, relpath, objects, object, emberRoutePath, registerType;
       var m;
 
-      var libs = require('./*/**/*.@(js|coffee)', { hash: true, ext: false });
+      var libs = require('./*/**/*.@(js|coffee)', { hash: 'path', ext: false });
 
       Ember.debug('-------------------------------');
       Ember.debug('REGISTER');
+      Ember.debug('CLASSES');
       Ember.debug('-------------------------------');
       for (relpath in libs) {
         m = relpath.match(/^\.\/([^\/]+)\//);
@@ -29,13 +30,15 @@ module.exports = function(App) {
         object = libs[relpath];
         emberRoutePath = relpath.replace(pathPart, '').replace('/', '.');
         registerType = typeSingular+':'+emberRoutePath;
-        Ember.debug(registerType, object);
+        Ember.debug(registerType);
+        Ember.debug(object);
         application.register(registerType, object);
       }
 
       Ember.debug('-------------------------------');
+      Ember.debug('TEMPLATES');
 
-      var templates = require('./templates/**/*.@(hbs|handlebars)', { hash: true, ext: true });
+      var templates = require('./templates/**/*.@(hbs|handlebars)', { hash: 'path', ext: true });
       for (relpath in templates) {
         m = relpath.match(/^\.\/([^\/]+)\//);
         if (!m || !m[1]) {
