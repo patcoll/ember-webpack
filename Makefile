@@ -1,14 +1,14 @@
 WFLAGS=--progress --colors
 WFLAGSDEV=--debug --devtool source-map --output-pathinfo
 
-all:
+all: deps
 	webpack $(WFLAGS) $(WFLAGSDEV)
 deps:
 	bower install
 	npm install
 prod:
 	NODE_ENV=production webpack $(WFLAGS)
-watch:
+watch: deps
 	# webpack $(WFLAGS) $(WFLAGSDEV) --watch
 	grunt dev
 start:
