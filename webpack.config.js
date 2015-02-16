@@ -13,7 +13,7 @@ var common = {
     ],
     loaders: [
       // loader for es6
-      { test: /app\/[^\/]+\/.+\.js$/, loader: '6to5' },
+      { test: /app\/[^\/]+\/.+\.js$/, loader: 'babel' },
 
       // copies files from app/static (shallow) as-is to output.path, ignoring file's full path.
       // if you want the full path, use [path][name].[ext]
